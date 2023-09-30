@@ -13,6 +13,46 @@ public class Event implements Comparable<Event> {
         this.duration = duration;
     }
 
+    public Date getDate(){
+        return this.date;
+    }
+
+    public Timeslot getStartTime(){
+        return this.startTime;
+    }
+
+    public Location getLocation(){
+        return this.location;
+    }
+
+    public Contact getContact(){
+        return this.contact;
+    }
+
+    public int getDuration(){
+        return this.duration;
+    }
+
+    public void setDate(Date newDate){
+        this.date = newDate;
+    }
+
+    public void setStartTime(Timeslot newStartTime){
+        this.startTime = newStartTime;
+    }
+
+    public void setLocation(Location newLocation){
+        this.location = newLocation;
+    }
+
+    public void setContact(Contact newContact){
+        this.contact = newContact;
+    }
+
+    public void setDuration(int newDuration){
+        this.duration = newDuration;
+    }
+
     @Override
     public boolean equals(Object object){
         if (this == object) return true;

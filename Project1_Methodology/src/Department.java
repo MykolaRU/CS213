@@ -15,4 +15,8 @@ public enum Department {
     public String toString() {
         return fullName;
     }
+
+    public String getDepartmentName(){
+        return this.fullName;
+    }
 }

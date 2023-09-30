@@ -40,9 +40,22 @@ public class Date implements Comparable<Date> {
 
     @Override ///NO IDEA
     public int compareTo(Date other) {
-        if (this.year != other.year) return this.year - other.year;
-        if (this.month != other.month) return this.month - other.month;
-        return this.day - other.day;
+        if (this.year > other.year)
+            return 1;
+        if (this.year < other.year)
+            return -1;
+
+        if (this.month > other.month)
+            return 1;
+        if (this.month < other.month)
+            return -1;
+
+        if (this.day > other.day)
+            return 1;
+        if (this.day < other.day)
+            return -1;
+
+        return 0;
     }
 
 }

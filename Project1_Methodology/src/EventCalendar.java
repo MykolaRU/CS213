@@ -10,23 +10,53 @@ public class EventCalendar {
         return NOT_FOUND;
     } //search an event in the list
     private void grow() {
-        Event[] largerevents = new Event[events.length + 4];
+        final int GROW_AMOUNT = 4;
+        Event[] largerevents = new Event[events.length + GROW_AMOUNT];
+
         for(int i = 0; i<events.length; i++){
             largerevents[i]=events[i];
         }
+
         events = largerevents;
     } //increase the capacity by 4
     public boolean add(Event event) {
+        if(numEvents == events.length)
+            grow();
+
+        for(int i = (events.length - 1); i>0; i--){
+            if(events[i] != null){
+                events[i+1] = event;
+                return true;
+            }
+        }
         return false;
     }
     public boolean remove(Event event) {
-        return false;
+        int removeLoc = find(event);
+
+        for(int i = removeLoc; i<(events.length - 1); i++){
+            events[i] = events[i+1];
+        }
+
+        events[events.length - 1] = null;
+
+        return true;
     }
     public boolean contains(Event event) {
-        return false;
+        return find(event) != -1;
     }
-    public void print() { } //print the array as is
-    public void printByDate() { } //ordered by date and timeslot
-    public void printByCampus() { } //ordered by campus and building/room
-    public void printByDepartment(){ } //ordered by department
+    public void print() {
+        for(int i=0; i< events.length; i++){
+            System.out.println(events[i]);
+        }
+    } //print the array as is
+    public void printByDate() {
+
+    } //ordered by date and timeslot
+    public void printByCampus() {
+
+    } //ordered by campus and building/room
+    public void printByDepartment(){
+
+    } //ordered by department
 }

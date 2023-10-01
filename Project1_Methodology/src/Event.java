@@ -23,7 +23,7 @@ public class Event implements Comparable<Event> {
 
     public Location getLocation(){
         return this.location;
-    }
+    } //getter
 
     public Contact getContact(){
         return this.contact;

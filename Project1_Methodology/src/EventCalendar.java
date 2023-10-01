@@ -92,5 +92,5 @@ public class EventCalendar {
                 }
             }
         }
-    } //ordered by department
+    } //ordered by department done
 }

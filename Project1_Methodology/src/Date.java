@@ -38,7 +38,7 @@ public class Date implements Comparable<Date> {
          return year % QUATERCENTENNIAL == 0;    //short form of if statement
     }
 
-    @Override ///NO IDEA
+    @Override //Fixed
     public int compareTo(Date other) {
         if (this.year > other.year)
             return 1;

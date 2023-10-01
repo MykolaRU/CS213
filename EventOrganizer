@@ -9,7 +9,8 @@ public class EventOrganizer {
     public void run() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter an event: ");
-        String input = "";
+        String input, token, inputDate, timeOfTheDay,building,department,email,duration;
+        input = token = inputDate = timeOfTheDay = building = department = email = duration = null;
 
         while (true) {          //gets user input
             input = scanner.nextLine();
@@ -18,13 +19,17 @@ public class EventOrganizer {
             }
         }
         String[] userInputArray = input.split(" "); //splits input into separate strings
-        String token = userInputArray[0].toUpperCase();
-        String inputDate = userInputArray[1];
-        String timeOfTheDay = userInputArray[2];
-        String building = userInputArray[3];
-        String department = userInputArray[4];
-        String email = userInputArray[5];
-        String duration = userInputArray[6];
+        if (userInputArray.length<5) {
+            token = userInputArray[0].toUpperCase();
+            inputDate = userInputArray[1];
+            timeOfTheDay = userInputArray[2];
+             building = userInputArray[3];
+        }
+         if (userInputArray.length>5){
+             department = userInputArray[4];
+             email = userInputArray[5];
+             duration = userInputArray[6];
+        }
 
         switch (token) {
             case "A":
@@ -32,7 +37,29 @@ public class EventOrganizer {
                     building,department,email,duration));
                 break;
             case "R":
-                
+                Date d = new Date(inputDate);
+                Timeslot ts = Timeslot.valueOf(timeOfTheDay.toUpperCase());
+                Location l = Location.valueOf(building.toUpperCase());
+                if(d.isValid()) {
+                    Event event = new Event(d, ts, l);
+                    eventCalendar.remove(event);
+                }
+                break;
+            case "P":
+                eventCalendar.print();
+                break;
+            case "PE":
+                eventCalendar.printByDate();
+                break;
+            case "PC":
+                eventCalendar.printByCampus();
+                break;
+            case "PD":
+                eventCalendar.printByDepartment();
+                break;
+            default:
+                System.out.println("Invalid command. Please enter a valid command: ");
+
         }
     }
 
@@ -67,5 +94,5 @@ public class EventOrganizer {
 
 
 
-}
+
 

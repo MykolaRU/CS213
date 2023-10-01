@@ -6,7 +6,7 @@ public enum Timeslot {
     private final String time;
 
     Timeslot(String time) {
-        this.time = time.toUpperCase();
+        this.time = time;
     }
     public String getTime(){
         return this.time;

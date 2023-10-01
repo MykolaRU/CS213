@@ -9,10 +9,27 @@ public class Date implements Comparable<Date> {
     public static final int QUATERCENTENNIAL = 400;
 
     public Date(String date){
-        String[] dateArray = date.split("/"); //splitting the string into parts (month, day , year)
+        String[] dateArray = date.split("/",3); //splitting the string into parts (month, day , year)
         this.month = Integer.parseInt(dateArray[0]);
         this.day = Integer.parseInt(dateArray[1]);
         this.year = Integer.parseInt(dateArray[2]);
+    }
+
+    public int getDay(){
+        return this.day;
+    }
+
+    public int getMonth(){
+        return this.month;
+    }
+
+    public int getYear(){
+        return this.year;
+    }
+
+    @Override // may have to remove, not sure yet
+    public String toString(){
+        return (getMonth() + "/" + getDay() + "/" + getYear());
     }
 
     //checks if the date is a valid calendar date

@@ -5,6 +5,10 @@ public class Event implements Comparable<Event> {
     private Contact contact; //include the department name and email
     private int duration; //in minutes
 
+    public static void main(String args[]){
+
+    }
+
     public Event(Date date, Timeslot startTime, Location location, Contact contact, int duration){
         this.date = date;
         this.startTime = startTime;
@@ -77,8 +81,8 @@ public class Event implements Comparable<Event> {
     @Override
     public String toString() {
 
-        return String.format("[Event Date: %s] [Start: %s] [End: %s] @%s [Contact: %s]",
-                date, startTime, calculateEndTime(), location, contact);
+        return String.format("[Event Date: %s] [Start: %s] [End: %s] @%s (%s, %s) [Contact: %s]",
+                date, startTime.getTime(), calculateEndTime(), location, location.getBuildingName(), location.getCampus(), contact);
     }
 
     private String calculateEndTime(){
@@ -90,8 +94,11 @@ public class Event implements Comparable<Event> {
         int minutes = endTimeInMinutes % 60;
         String partOfTheDay = "";
 
-        if(hour>12) partOfTheDay = "am";
-        else partOfTheDay = "pm";
+        if(hour<12) partOfTheDay = "am";
+        else {
+            partOfTheDay = "pm";
+            hour = hour - 12;
+        }
 
         return Integer.toString(hour) + ":" + Integer.toString(minutes) + partOfTheDay;
     }

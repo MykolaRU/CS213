@@ -3,6 +3,7 @@ import java.util.Calendar;
 
 public class EventOrganizer {
     private final EventCalendar eventCalendar;
+    public static final int SIX_MONTHS = 6;
 
     public EventOrganizer() {
         this.eventCalendar = new EventCalendar();
@@ -41,7 +42,7 @@ public class EventOrganizer {
         scanner.close();
     }
 
-    public Event createEvent(String date, String timeOfTheDay, String building, String department, String email, String dur) {
+    private Event createEvent(String date, String timeOfTheDay, String building, String department, String email, String dur) {
 
         Date d = new Date(date);
 
@@ -53,7 +54,7 @@ public class EventOrganizer {
         return new Event(d, timeslot, location, new Contact(department1, email), duration);
     }
 
-    public void action(String token, String inputDate, String timeOfTheDay, String building, String department, String email, String duration){
+    private void action(String token, String inputDate, String timeOfTheDay, String building, String department, String email, String duration){
         switch (token) {
             case "A":
                 A(inputDate, timeOfTheDay,building,department,email,duration);
@@ -85,12 +86,13 @@ public class EventOrganizer {
     }
 
     private void A(String inputDate, String timeOfTheDay, String building, String department, String email, String duration){
-        if(!(timeOfTheDay.equalsIgnoreCase("MORNING") || timeOfTheDay.equalsIgnoreCase("AFTERNOON") || timeOfTheDay.equalsIgnoreCase("EVENING"))){
-            System.out.println("Invalid time slot!"); return;}
+        if(!(checkTimeslot(timeOfTheDay))){System.out.println("Invalid time slot!"); return;}
 
-        if(!(building.equalsIgnoreCase("HLL114") || building.equalsIgnoreCase("ARC103") || building.equalsIgnoreCase("BE_AUD") ||
-                building.equalsIgnoreCase("TIL232") || building.equalsIgnoreCase("AB2225") || building.equalsIgnoreCase("MU302"))){
-            System.out.println("Invalid location!"); return;}
+        if(!(checkLocation(building))){System.out.println("Invalid location!"); return;}
+
+        if(!checkDepartment(department, email)){System.out.println("Invalid contact information!"); return;}
+
+        if(Integer.parseInt(duration)<30 || Integer.parseInt(duration)>120){System.out.println("Event duration must be at least 30 minutes and at most 120 minutes"); return;}
 
         Event newEvent = createEvent(inputDate, timeOfTheDay, building, department, email, duration);
 
@@ -104,7 +106,7 @@ public class EventOrganizer {
 
         if(today.compareTo(daten) > 0){ System.out.println(newEvent.getDate().toString() + ": Event date must be a future date!"); return;}
 
-        daten.add(Calendar.MONTH, -6);
+        daten.add(Calendar.MONTH, -SIX_MONTHS);
 
         if(today.compareTo(daten) < 0){ System.out.println(newEvent.getDate().toString() + ": Event date must be within 6 months!"); return;}
 
@@ -114,6 +116,10 @@ public class EventOrganizer {
     }
 
     private void R(String inputDate, String timeOfTheDay, String building, String department, String email, String duration){
+        if(!(checkTimeslot(timeOfTheDay))){System.out.println("Invalid time slot!"); return;}
+
+        if(!(checkLocation(building))){System.out.println("Invalid location!"); return;}
+
         Event newEvent = createEvent(inputDate, timeOfTheDay, building, department, email, duration);
 
         if(!eventCalendar.contains(newEvent)){ System.out.println("Cannot remove; event is not in the calendar! "); return;}
@@ -126,7 +132,7 @@ public class EventOrganizer {
 
         if(today.compareTo(daten) > 0){ System.out.println(newEvent.getDate().toString() + ": Event date must be a future date!"); return;}
 
-        daten.add(Calendar.MONTH, -6);
+        daten.add(Calendar.MONTH, -SIX_MONTHS);
 
         if(today.compareTo(daten) < 0){ System.out.println(newEvent.getDate().toString() + ": Event date must be within 6 months!"); return;}
 
@@ -134,8 +140,37 @@ public class EventOrganizer {
         eventCalendar.remove(newEvent);
     }
 
-    public static void main(String[] args) {
-        Calendar today = Calendar.getInstance();
-        System.out.println(today.toString());
+    private boolean checkDepartment(String department, String email){
+
+        String[] emailArray = email.split("@");
+        if(emailArray.length != 2) return false;
+        if(!emailArray[1].equals("rutgers.edu")) return false;
+
+        for(Department i : Department.values()){
+            if(i.name().equalsIgnoreCase(department))
+                return true;
+        }
+        return false;
     }
+
+    private boolean checkLocation(String building){
+        for(Location i : Location.values()){
+            if(i.name().equalsIgnoreCase(building))
+                return true;
+        }
+        return false;
+    }
+
+    private boolean checkTimeslot(String timeslot){
+        for(Timeslot i : Timeslot.values()){
+            if(i.name().equalsIgnoreCase(timeslot))
+                return true;
+        }
+        return false;
+    }
+
+    public static void main(String args[]){
+
+    }
+
 }

@@ -52,10 +52,19 @@ public class EventCalendar {
     public Event[] getEvents(){
         return this.events;
     }
+
+    public int getNumEvents(){
+        return this.numEvents;
+    }
+
+    public void setNumEvents(int num){
+        this.numEvents = num;
+    }
     private int find(Event event) {
 
-        for(int i = 0; i<events.length; i++){
-            if (event.equals(events[i])) return i;
+        for(int i = 0; i<getNumEvents(); i++){
+            if (event.getDate().toString().equals(events[i].getDate().toString()) && event.getStartTime().equals(events[i].getStartTime()) && event.getLocation().equals(events[i].getLocation()))
+                return i;
         }
         return NOT_FOUND;
     } //search an event in the list
@@ -69,16 +78,21 @@ public class EventCalendar {
         events = largerevents;
     } //increase the capacity by 4
     public boolean add(Event event) {
+
         if(numEvents == events.length)
             grow();
 
         events[numEvents] = event;
-        numEvents++;
+        setNumEvents(getNumEvents()+1);
 
-        return false;
+
+        return true;
     }
     public boolean remove(Event event) {
         int removeLoc = find(event);
+
+        if(removeLoc == -1)
+            return false;
 
         for(int i = removeLoc; i<(events.length - 1); i++){
             events[i] = events[i+1];
@@ -86,7 +100,7 @@ public class EventCalendar {
 
         events[events.length - 1] = null;
 
-        numEvents--;
+        setNumEvents(getNumEvents()-1);
 
         return true;
     }
@@ -94,9 +108,11 @@ public class EventCalendar {
         return find(event) != -1;
     }
     public void print() {
+        System.out.println("* Event calendar *");
         for (int i = 0; i<numEvents; i++){
             System.out.println(events[i]);
         }
+        System.out.println("* end of event calendar *");
     } //print the array as is
     public void printByDate() {
         Event holder = null;
@@ -112,10 +128,11 @@ public class EventCalendar {
             }
         }
 
+        System.out.println("* Event calendar by event date and start time *");
         for (int i = 0; i<numEvents; i++){
                 System.out.println(events[i]);
         }
-
+        System.out.println("* end of event calendar *");
     } //ordered by date and timeslot
     public void printByCampus() {
         Event holder = null;
@@ -131,9 +148,11 @@ public class EventCalendar {
             }
         }
 
+        System.out.println("* Event calendar by campus and building *");
         for (int i = 0; i<numEvents; i++){
             System.out.println(events[i]);
         }
+        System.out.println("* end of event calendar *");
     } //ordered by campus and building/room
     public void printByDepartment(){
         Event holder = null;
@@ -149,8 +168,10 @@ public class EventCalendar {
             }
         }
 
+        System.out.println("* Event calendar by department *");
         for (int i = 0; i<numEvents; i++){
             System.out.println(events[i]);
         }
+        System.out.println("* end of event calendar *");
     } //ordered by department done
 }

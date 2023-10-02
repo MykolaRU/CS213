@@ -40,8 +40,8 @@ public class Date implements Comparable<Date> {
 
         if(month==2 && IsLeapYear(year)) //checking January for Leap Year
             if(day<1 || day>29) return false;
-        else
-            if (day != daysInMonth[month-1]) return false;
+
+        if (day > daysInMonth[month-1]) return false;
 
         if (year<1) return false;
 

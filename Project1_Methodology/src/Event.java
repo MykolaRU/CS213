@@ -99,7 +99,8 @@ public class Event implements Comparable<Event> {
             partOfTheDay = "pm";
             hour = hour - 12;
         }
-
+        if(minutes == 0)
+            return Integer.toString(hour) + ":" + Integer.toString(minutes) + "0" + partOfTheDay;
         return Integer.toString(hour) + ":" + Integer.toString(minutes) + partOfTheDay;
     }
 }

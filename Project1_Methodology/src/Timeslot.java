@@ -13,12 +13,12 @@ public enum Timeslot {
     }
 
     public int ConvertToMinutes(){           //converting time to minutes from String
-        switch(this){
-            case MORNING:   return 10 * 60 +30;     //this is 10:30AM
-            case AFTERNOON: return 14 * 60;         //this is 2:00PM
-            case EVENING:   return 18 * 60 + 30;    //this is 6:30PM
-            default:return -1;
-        }
+        return switch (this) {
+            case MORNING -> 10 * 60 + 30;     //this is 10:30AM
+            case AFTERNOON -> 14 * 60;         //this is 2:00PM
+            case EVENING -> 18 * 60 + 30;    //this is 6:30PM
+            default -> -1;
+        };
     }
 
 

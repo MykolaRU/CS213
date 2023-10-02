@@ -4,6 +4,8 @@ import java.util.Calendar;
 public class EventOrganizer {
     private final EventCalendar eventCalendar;
     public static final int SIX_MONTHS = 6;
+    public static final int MIN_DURATION = 30;
+    public static final int MAX_DURATION = 120;
 
     public EventOrganizer() {
         this.eventCalendar = new EventCalendar();
@@ -13,7 +15,6 @@ public class EventOrganizer {
         Scanner scanner = new Scanner(System.in);
         String inputDate = "", timeOfTheDay = "", building = "", department = "", email = "", duration = "";
         System.out.println("Event Organizer running...");
-        System.out.println();
 
         while (true) {
             String input = scanner.nextLine().trim();
@@ -23,19 +24,19 @@ public class EventOrganizer {
                 break;
             }
 
-            String[] userInputArray = input.split(" "); //gets all user inputs
+            String[] userInputArray = input.trim().split("\\s+"); //gets all user inputs
             String token = userInputArray[0];
 
             if (token.equals("A")||token.equals("R")) {
-                inputDate = userInputArray[1];
-                timeOfTheDay = userInputArray[2];
-                building = userInputArray[3];
+                inputDate = userInputArray[1].trim();
+                timeOfTheDay = userInputArray[2].trim();
+                building = userInputArray[3].trim();
             }
 
             if (token.equals("A")){
-                department = userInputArray[4];
-                email = userInputArray[5];
-                duration = userInputArray[6];
+                department = userInputArray[4].trim();
+                email = userInputArray[5].trim();
+                duration = userInputArray[6].trim();
             }
             action(token, inputDate, timeOfTheDay, building, department, email, duration);
         }
@@ -43,9 +44,7 @@ public class EventOrganizer {
     }
 
     private Event createEvent(String date, String timeOfTheDay, String building, String department, String email, String dur) {
-
         Date d = new Date(date);
-
         Timeslot timeslot = Timeslot.valueOf(timeOfTheDay.toUpperCase());
         Location location = Location.valueOf(building.toUpperCase());
         Department department1 = Department.valueOf(department.toUpperCase());
@@ -92,11 +91,11 @@ public class EventOrganizer {
 
         if(!checkDepartment(department, email)){System.out.println("Invalid contact information!"); return;}
 
-        if(Integer.parseInt(duration)<30 || Integer.parseInt(duration)>120){System.out.println("Event duration must be at least 30 minutes and at most 120 minutes"); return;}
+        if(Integer.parseInt(duration.trim())<MIN_DURATION || Integer.parseInt(duration.trim())>MAX_DURATION){System.out.println("Event duration must be at least 30 minutes and at most 120 minutes"); return;}
 
         Event newEvent = createEvent(inputDate, timeOfTheDay, building, department, email, duration);
 
-        if(eventCalendar.contains(newEvent)){ System.out.println("The event is already on the calendar."); return;}
+        if(eventCalendar.contains(newEvent)){System.out.println("The event is already on the calendar."); return;}
 
         if(!newEvent.getDate().isValid()){ System.out.println(newEvent.getDate().toString() + ": Invalid calendar date!"); return;}
 
@@ -122,8 +121,6 @@ public class EventOrganizer {
 
         Event newEvent = createEvent(inputDate, timeOfTheDay, building, department, email, duration);
 
-        if(!eventCalendar.contains(newEvent)){ System.out.println("Cannot remove; event is not in the calendar! "); return;}
-
         if(!newEvent.getDate().isValid()){ System.out.println(newEvent.getDate().toString() + ": Invalid calendar date!"); return;}
 
         Calendar today = Calendar.getInstance();
@@ -135,6 +132,8 @@ public class EventOrganizer {
         daten.add(Calendar.MONTH, -SIX_MONTHS);
 
         if(today.compareTo(daten) < 0){ System.out.println(newEvent.getDate().toString() + ": Event date must be within 6 months!"); return;}
+
+        if(!eventCalendar.contains(newEvent)){ System.out.println("Cannot remove; event is not in the calendar! "); return;}
 
         System.out.println("Event has been removed from the calendar!");
         eventCalendar.remove(newEvent);
@@ -168,9 +167,4 @@ public class EventOrganizer {
         }
         return false;
     }
-
-    public static void main(String args[]){
-
-    }
-
 }

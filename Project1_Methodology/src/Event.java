@@ -5,9 +5,9 @@ public class Event implements Comparable<Event> {
     private Contact contact; //include the department name and email
     private int duration; //in minutes
 
-    public static void main(String args[]){
+    public static final int NOON = 12;
+    public static final int MINUTES_IN_HOUR = 60;
 
-    }
 
     public Event(Date date, Timeslot startTime, Location location, Contact contact, int duration){
         this.date = date;
@@ -60,29 +60,30 @@ public class Event implements Comparable<Event> {
     @Override
     public boolean equals(Object object){
         if (this == object) return true;
-        else if (object ==null || !(object instanceof Event)) return false;  //checking if object is of class Event
+        else if (!(object instanceof Event)) return false;  //checking if object is of class Event
         Event event = (Event) object;
 
-        if ( date.equals(event.date)
+        return date.equals(event.date)
                 && startTime == event.startTime
-                && location == event.location)
-            return true;
-
-        return false;
+                && location == event.location;
     }
 
     @Override
     public int compareTo(Event other) {   //comparing dates and time
-        int dateComparison = this.date.compareTo(other.date);
-        if (dateComparison != 0) return dateComparison;
-        return this.startTime.compareTo(other.startTime);
+        if (this.date.compareTo(other.getDate()) > 0) return 1;
+        if (this.date.compareTo(other.getDate()) < 0) return -1;
+
+        if(this.startTime.ConvertToMinutes()>other.getStartTime().ConvertToMinutes()) return 1;
+        if(this.startTime.ConvertToMinutes()<other.getStartTime().ConvertToMinutes()) return -1;
+
+        return 0;
     }
 
     @Override
     public String toString() {
 
         return String.format("[Event Date: %s] [Start: %s] [End: %s] @%s (%s, %s) [Contact: %s]",
-                date, startTime.getTime(), calculateEndTime(), location, location.getBuildingName(), location.getCampus(), contact);
+                date, startTime(), calculateEndTime(), location, location.getBuildingName(), location.getCampus(), contact);
     }
 
     private String calculateEndTime(){
@@ -90,17 +91,34 @@ public class Event implements Comparable<Event> {
         int endTimeInMinutes = startTimeInMinutes + duration;
 
         //converting back to hours
-        int hour = endTimeInMinutes / 60;
-        int minutes = endTimeInMinutes % 60;
+        int hour = endTimeInMinutes / MINUTES_IN_HOUR;
+        int minutes = endTimeInMinutes % MINUTES_IN_HOUR;
         String partOfTheDay = "";
 
-        if(hour<12) partOfTheDay = "am";
+        if(hour<NOON) partOfTheDay = "am";
         else {
             partOfTheDay = "pm";
-            hour = hour - 12;
+            if(hour != NOON) hour = hour - NOON;
         }
         if(minutes == 0)
-            return Integer.toString(hour) + ":" + Integer.toString(minutes) + "0" + partOfTheDay;
+            return hour + ":" + minutes + "0" + partOfTheDay;
+        return hour + ":" + minutes + partOfTheDay;
+    }
+
+    private String startTime(){
+        int hour = startTime.getHour();
+        int minutes = startTime.getMinute();
+
+        String partOfTheDay = "";
+
+        if(hour<NOON) partOfTheDay = "am";
+        else {
+            partOfTheDay = "pm";
+            if(hour != NOON) hour = hour - NOON;
+        }
+
+        if(minutes == 0)
+            return (hour + ":" + minutes + "0" + partOfTheDay);
         return Integer.toString(hour) + ":" + Integer.toString(minutes) + partOfTheDay;
     }
 }

@@ -6,23 +6,12 @@ public class Contact {
         this.department = department;
         this.email = email;
     }
-    public boolean isValid() {
-        if (department==null || email ==null) return false;
-
-        return email.endsWith("@rutgers.edu");
-    }
-
-    @Override
-    public String toString() {
-        return department + ", " + email;
-    }
-
     public Department getDepartment(){
         return this.department;
     }
 
     public String getEmail(){
-        return this.getEmail();
+        return this.email;
     }
 
     public void setDepartment(Department newDepartment){
@@ -31,5 +20,21 @@ public class Contact {
 
     public void setEmail(String email){
         this.email = email;
-    } //setter
+    }
+    public boolean isValid(String email, String department) {
+        String[] emailArray = email.split("@");
+        if(emailArray.length != 2) return false;
+        if(!emailArray[1].equals("rutgers.edu")) return false;
+
+        for(Department i : Department.values()){
+            if(i.name().equalsIgnoreCase(department))
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return department + ", " + email;
+    }
 }

@@ -1,24 +1,25 @@
 public enum Timeslot {
-    MORNING("10:30am"),
-    AFTERNOON("2:00pm"),
-    EVENING("6:30pm");
+    MORNING(10, 30),
+    AFTERNOON(14, 0),
+    EVENING(18,30);
 
-    private final String time;
-
-    Timeslot(String time) {
-        this.time = time;
+    private final int hour;
+    private final int minute;
+    public static final int MINUTES_IN_HOUR = 60;
+    Timeslot(int hour, int minute) {
+        this.hour = hour;
+        this.minute = minute;
     }
-    public String getTime(){
-        return this.time;
+    public int getHour(){
+        return this.hour;
     }
 
-    public int ConvertToMinutes(){           //converting time to minutes from String
-        return switch (this) {
-            case MORNING -> 10 * 60 + 30;     //this is 10:30AM
-            case AFTERNOON -> 14 * 60;         //this is 2:00PM
-            case EVENING -> 18 * 60 + 30;    //this is 6:30PM
-            default -> -1;
-        };
+    public int getMinute(){
+        return this.minute;
+    }
+
+    public int ConvertToMinutes(){           //converting time to minutes
+        return this.hour * MINUTES_IN_HOUR + this.minute;
     }
 
 

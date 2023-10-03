@@ -158,4 +158,15 @@ public class Date implements Comparable<Date> {
         if (this.day < other.day) return -1;
         return 0;
     }
+
+    /** Testing the IsValid() method */
+    public static void main(String[] args) {
+        // Test for isValid() method
+        String[] testDates = {"2/29/2025","10/21/2023", "11/1/2023", "02/28/2024", "13/01/2021", "12/32/2021", "10/20/2020"};
+        for (String testDate : testDates) {
+            Date d = new Date(testDate);
+            System.out.println("Testing date: " + testDate + " - Result: " + d.isValid());
+        }
+    }
+
 }

@@ -6,7 +6,7 @@
  */
 public class RunProject1 {
 
-    /**
+   /**
      * The main method serves as the entry point of the program.
      * It creates a new instance of EventOrganizer and calls its run method to execute the program.
      *

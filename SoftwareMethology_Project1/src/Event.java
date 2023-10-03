@@ -210,4 +210,18 @@ public class Event implements Comparable<Event> {
             return (hour + ":" + minutes + "0" + partOfTheDay);
         return Integer.toString(hour) + ":" + Integer.toString(minutes) + partOfTheDay;
     }
+
+    /** TEST CASES FOR EQUALS() METHOD */
+    public static void main(String[] args) {
+        Event event1 = new Event(new Date("02/28/2021"), Timeslot.MORNING, Location.HLL114, new Contact(Department.CS, "cs@rutgers.edu"), 60);
+        Event event2 = new Event(new Date("02/28/2021"), Timeslot.MORNING, Location.HLL114, new Contact(Department.CS, "cs@rutgers.edu"), 60);
+        Event event3 = new Event(new Date("02/29/2021"), Timeslot.MORNING, Location.HLL114, new Contact(Department.CS, "cs@rutgers.edu"), 60);
+        Event event4 = new Event(new Date("02/28/2021"), Timeslot.AFTERNOON, Location.HLL114, new Contact(Department.CS, "cs@rutgers.edu"), 60);
+
+        System.out.println("Event1 equals Event2? " + event1.equals(event1));
+        System.out.println("Event1 equals Event3? " + event1.equals(event3));
+        System.out.println("Event1 equals Event4? " + event1.equals(event4));
+    }
+
+
 }

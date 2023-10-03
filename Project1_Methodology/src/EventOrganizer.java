@@ -1,3 +1,10 @@
+/**
+ * Represents an Event Organizer which uses an Event Calendar to perform various actions
+ * like adding, removing, printing events based on user input.
+ * It validates the inputs and performs the corresponding actions.
+ *
+ * @author Ethan, Mykola
+ */
 import java.util.Scanner;
 import java.util.Calendar;
 
@@ -7,19 +14,26 @@ public class EventOrganizer {
     public static final int MIN_DURATION = 30;
     public static final int MAX_DURATION = 120;
 
+    /**
+     * Initializes a new EventOrganizer with a new Event Calendar.
+     */
     public EventOrganizer() {
         this.eventCalendar = new EventCalendar();
     }
 
+    /**
+     * Runs the Event Organizer, reads user input, and performs corresponding actions.
+     */
     public void run() {
         Scanner scanner = new Scanner(System.in);
         String inputDate = "", timeOfTheDay = "", building = "", department = "", email = "", duration = "";
         System.out.println("Event Organizer running...");
 
+        // Infinite loop to keep the program running until the user decides to quit
         while (true) {
             String input = scanner.nextLine().trim();
 
-            if (input.equalsIgnoreCase("Q")) {
+            if (input.equals("Q")) {
                 System.out.println("Event Organizer terminated.");
                 break;
             }
@@ -43,6 +57,17 @@ public class EventOrganizer {
         scanner.close();
     }
 
+    /**
+     * Creates an event object from the input strings.
+     *
+     * @param date The event date
+     * @param timeOfTheDay The event time
+     * @param building The event location
+     * @param department The department hosting the event
+     * @param email The contact email for the event
+     * @param dur The event duration
+     * @return A new Event object
+     */
     private Event createEvent(String date, String timeOfTheDay, String building, String department, String email, String dur) {
         Date d = new Date(date);
         Timeslot timeslot = Timeslot.valueOf(timeOfTheDay.toUpperCase());
@@ -53,6 +78,17 @@ public class EventOrganizer {
         return new Event(d, timeslot, location, new Contact(department1, email), duration);
     }
 
+    /**
+     * Calls the corresponding action method based on the token provided.
+     *
+     * @param token The action to be performed
+     * @param inputDate The event date
+     * @param timeOfTheDay The event time
+     * @param building The event location
+     * @param department The department hosting the event
+     * @param email The contact email for the event
+     * @param duration The event duration
+     */
     private void action(String token, String inputDate, String timeOfTheDay, String building, String department, String email, String duration){
         switch (token) {
             case "A":
@@ -84,6 +120,16 @@ public class EventOrganizer {
         }
     }
 
+    /**
+     * Adds an event to the event calendar after performing various validations.
+     *
+     * @param inputDate The event date
+     * @param timeOfTheDay The event time
+     * @param building The event location
+     * @param department The department hosting the event
+     * @param email The contact email for the event
+     * @param duration The event duration
+     */
     private void A(String inputDate, String timeOfTheDay, String building, String department, String email, String duration){
         if(!(checkTimeslot(timeOfTheDay))){System.out.println("Invalid time slot!"); return;}
 
@@ -114,6 +160,16 @@ public class EventOrganizer {
         eventCalendar.add(newEvent);
     }
 
+    /**
+     * Removes an event from the event calendar after performing various validations.
+     *
+     * @param inputDate The event date
+     * @param timeOfTheDay The event time
+     * @param building The event location
+     * @param department The department hosting the event
+     * @param email The contact email for the event
+     * @param duration The event duration
+     */
     private void R(String inputDate, String timeOfTheDay, String building, String department, String email, String duration){
         if(!(checkTimeslot(timeOfTheDay))){System.out.println("Invalid time slot!"); return;}
 
@@ -139,6 +195,13 @@ public class EventOrganizer {
         eventCalendar.remove(newEvent);
     }
 
+    /**
+     * Validates the department and email.
+     *
+     * @param department The department hosting the event
+     * @param email The contact email for the event
+     * @return true if valid department and email, false otherwise
+     */
     private boolean checkDepartment(String department, String email){
 
         String[] emailArray = email.split("@");
@@ -152,6 +215,12 @@ public class EventOrganizer {
         return false;
     }
 
+    /**
+     * Validates the location.
+     *
+     * @param building The event location
+     * @return true if valid location, false otherwise
+     */
     private boolean checkLocation(String building){
         for(Location i : Location.values()){
             if(i.name().equalsIgnoreCase(building))
@@ -160,6 +229,12 @@ public class EventOrganizer {
         return false;
     }
 
+    /**
+     * Validates the timeslot.
+     *
+     * @param timeslot The event time
+     * @return true if valid timeslot, false otherwise
+     */
     private boolean checkTimeslot(String timeslot){
         for(Timeslot i : Timeslot.values()){
             if(i.name().equalsIgnoreCase(timeslot))

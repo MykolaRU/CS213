@@ -28,7 +28,6 @@ public class EventOrganizer {
         Scanner scanner = new Scanner(System.in);
         String inputDate = "", timeOfTheDay = "", building = "", department = "", email = "", duration = "";
         System.out.println("Event Organizer running...");
-
         // Infinite loop to keep the program running until the user decides to quit
         while (true) {
             String input = scanner.nextLine().trim();

@@ -1,9 +1,9 @@
 /**
- * Represents a date object, containing day, month, and year,
- * and provides functionalities to validate the date, determine leap years, 
- * and compare two Date objects.
- *
-* @author Ethan, Mykola
+ Represents a date object, containing day, month, and year,
+ and provides functionalities to validate the date, determine leap years,
+ and compare two Date objects.
+
+ @author Ethan, Mykola
  */
 public class Date implements Comparable<Date> {
     private int year;
@@ -34,9 +34,9 @@ public class Date implements Comparable<Date> {
     public static final int CURRENT_YEAR = 2023;
 
     /**
-     * Initializes a new Date object from a string representation in the form MM/DD/YYYY.
-     *
-     * @param date a string representation of the date
+     Initializes a new Date object from a string representation in the form MM/DD/YYYY.
+
+     @param date a string representation of the date
      */
     public Date(String date){
         String[] dateArray = date.split("/");
@@ -46,63 +46,63 @@ public class Date implements Comparable<Date> {
     }
 
     /**
-     * Retrieves the day of the month.
-     *
-     * @return the day of the month
+     Retrieves the day of the month.
+
+     @return the day of the month
      */
     public int getDay(){
         return this.day;
     }
 
     /**
-     * Retrieves the month of the year.
-     *
-     * @return the month of the year
+     Retrieves the month of the year.
+
+     @return the month of the year
      */
     public int getMonth(){
         return this.month;
     }
 
     /**
-     * Retrieves the year.
-     *
-     * @return the year
+     Retrieves the year.
+
+     @return the year
      */
     public int getYear(){
         return this.year;
     }
 
     /**
-     * Updates the year of the date.
-     *
-     * @param year the new year
+     Updates the year of the date.
+
+     @param year the new year
      */
     public void setYear(int year){
         this.year = year;
     }
 
     /**
-     * Updates the month of the date.
-     *
-     * @param month the new month
+     Updates the month of the date.
+
+     @param month the new month
      */
     public void setMonth(int month){
         this.month = month;
     }
 
     /**
-     * Updates the day of the month.
-     *
-     * @param day the new day of the month
+     Updates the day of the month.
+
+     @param day the new day of the month
      */
     public void setDay(int day){
         this.day = day;
     }
 
     /**
-     * Returns a string representation of the Date object in the format MM/DD/YYYY.
-     *
-     * @return a string representation of the date
+     Returns a string representation of the Date object in the format MM/DD/YYYY.
+
+     @return a string representation of the date
      */
     @Override
     public String toString(){
@@ -110,9 +110,9 @@ public class Date implements Comparable<Date> {
     }
 
     /**
-     * Validates the date to ensure it corresponds to a valid calendar date, considering the month, day, and leap years.
-     *
-     * @return true if the date is valid, false otherwise
+     Validates the date to ensure it corresponds to a valid calendar date, considering the month, day, and leap years.
+
+     @return true if the date is valid, false otherwise
      */
     public boolean isValid(){
         if(month < JANUARY || month > DECEMBER) return false;
@@ -129,10 +129,10 @@ public class Date implements Comparable<Date> {
     }
 
     /**
-     * Determines if the given year is a leap year according to the Gregorian calendar.
-     *
-     * @param year the year to be checked
-     * @return true if the year is a leap year, false otherwise
+     Determines if the given year is a leap year according to the Gregorian calendar.
+
+     @param year the year to be checked
+     @return true if the year is a leap year, false otherwise
      */
     private boolean IsLeapYear(int year){
         if (year % QUADRENNIAL != 0) return false;
@@ -141,10 +141,10 @@ public class Date implements Comparable<Date> {
     }
 
     /**
-     * Compares this Date object to another Date object for ordering.
-     *
-     * @param other the other Date object to compare to
-     * @return a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than the specified object.
+     Compares this Date object to another Date object for ordering.
+
+     @param other the other Date object to compare to
+     @return a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than the specified object.
      */
     @Override
     public int compareTo(Date other) {

@@ -1,8 +1,8 @@
 /**
- * Enumeration of the various departments within the organization.
- * Each department has an associated full name.
- *
- * @authors Ethan, Mykola
+ Enumeration of the various departments within the organization.
+ Each department has an associated full name.
+
+ @authors Ethan, Mykola
  */
 public enum Department {
     CS("Computer Science"),
@@ -23,9 +23,9 @@ public enum Department {
     }
 
     /**
-     * Returns a string representation of this department, which is its full name.
-     *
-     * @return the full name of the department
+     Returns a string representation of this department, which is its full name.
+
+     @return the full name of the department
      */
     @Override
     public String toString() {
@@ -33,9 +33,9 @@ public enum Department {
     }
 
     /**
-     * Retrieves the full name of the department.
-     *
-     * @return the full name of the department
+     Retrieves the full name of the department.
+
+     @return the full name of the department
      */
     public String getDepartmentName(){
         return this.fullName;

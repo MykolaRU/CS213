@@ -1,8 +1,8 @@
 /**
- * Represents an Event Calendar holding a list of events, provides functionalities to add, remove, search, 
- * and print events in different orders.
- *
- * @authors Ethan, Mykola
+ Represents an Event Calendar holding a list of events, provides functionalities to add, remove, search,
+ and print events in different orders.
+
+ @authors Ethan, Mykola
  */
 public class EventCalendar {
     private Event[] events; // Array holding the list of events
@@ -13,7 +13,7 @@ public class EventCalendar {
     public static final int NOT_FOUND = -1;
 
     /**
-     * Initializes a new EventCalendar with an events array of size GROW_AMOUNT and no events.
+     Initializes a new EventCalendar with an events array of size GROW_AMOUNT and no events.
      */
     public EventCalendar() {
         this.events = new Event[GROW_AMOUNT];
@@ -21,46 +21,46 @@ public class EventCalendar {
     }
 
     /**
-     * Retrieves the events in the calendar.
-     *
-     * @return Array of events in the calendar
+     Retrieves the events in the calendar.
+
+     @return Array of events in the calendar
      */
     public Event[] getEvents() {
         return this.events;
     }
 
     /**
-     * Sets the events in the calendar.
-     *
-     * @param events Array of events to be set in the calendar
+     Sets the events in the calendar.
+
+     @param events Array of events to be set in the calendar
      */
     public void setEvents(Event[] events) {
         this.events = events;
     }
 
     /**
-     * Retrieves the number of events in the calendar.
-     *
-     * @return Number of events in the calendar
+     Retrieves the number of events in the calendar.
+
+     @return Number of events in the calendar
      */
     public int getNumEvents() {
         return this.numEvents;
     }
 
     /**
-     * Sets the number of events in the calendar.
-     *
-     * @param num The number of events to be set in the calendar
+     Sets the number of events in the calendar.
+
+     @param num The number of events to be set in the calendar
      */
     public void setNumEvents(int num) {
         this.numEvents = num;
     }
 
     /**
-     * Searches for an event in the list of events.
-     *
-     * @param event The event to be found
-     * @return Index of the event in the events array if found, NOT_FOUND constant otherwise
+     Searches for an event in the list of events.
+
+     @param event The event to be found
+     @return Index of the event in the events array if found, NOT_FOUND constant otherwise
      */
     private int find(Event event) {
         for (int i = 0; i < getNumEvents(); i++) {
@@ -73,7 +73,7 @@ public class EventCalendar {
     }
 
     /**
-     * Increases the capacity of the events array by the GROW_AMOUNT.
+     Increases the capacity of the events array by the GROW_AMOUNT.
      */
     private void grow() {
         Event[] largerEvents = new Event[events.length + GROW_AMOUNT];
@@ -86,10 +86,10 @@ public class EventCalendar {
     }
 
     /**
-     * Adds a new event to the events array.
-     *
-     * @param event The event to be added
-     * @return true if the event is successfully added, false otherwise
+     Adds a new event to the events array.
+
+     @param event The event to be added
+     @return true if the event is successfully added, false otherwise
      */
     public boolean add(Event event) {
         if (numEvents == events.length)
@@ -102,10 +102,10 @@ public class EventCalendar {
     }
 
     /**
-     * Removes an event from the events array.
-     *
-     * @param event The event to be removed
-     * @return true if the event is successfully removed, false otherwise
+     Removes an event from the events array.
+
+     @param event The event to be removed
+     @return true if the event is successfully removed, false otherwise
      */
     public boolean remove(Event event) {
         int removeLoc = find(event);
@@ -125,10 +125,10 @@ public class EventCalendar {
     }
 
     /**
-     * Checks if an event is present in the events array.
-     *
-     * @param event The event to be checked
-     * @return true if the event is present in the events array, false otherwise
+     Checks if an event is present in the events array.
+
+     @param event The event to be checked
+     @return true if the event is present in the events array, false otherwise
      */
     public boolean contains(Event event) {
         return find(event) != NOT_FOUND;
@@ -146,7 +146,7 @@ public class EventCalendar {
     }
 
     /**
-     * Prints the events array ordered by event date and start time.
+     Prints the events array ordered by event date and start time.
      */
     public void printByDate() {
         Event holder;
@@ -170,7 +170,7 @@ public class EventCalendar {
     }
 
     /**
-     * Prints the events array ordered by campus and building/room.
+     Prints the events array ordered by campus and building/room.
      */
     public void printByCampus() {
         Event holder;
@@ -194,7 +194,7 @@ public class EventCalendar {
     }
 
     /**
-     * Prints the events array ordered by department.
+     Prints the events array ordered by department.
      */
     public void printByDepartment() {
         Event holder;
